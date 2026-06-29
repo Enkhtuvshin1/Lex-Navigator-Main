@@ -10,6 +10,35 @@ from pydantic_settings.sources import EnvSettingsSource
 _ENV_FILE = Path(__file__).parent.parent.parent / ".env"
 
 
+def parse_cors_origins(value):
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    if isinstance(value, tuple):
+        return [str(item).strip() for item in value if str(item).strip()]
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            return []
+        if text.startswith("[") and text.endswith("]"):
+            try:
+                parsed = json.loads(text)
+            except json.JSONDecodeError:
+                parsed = []
+            if isinstance(parsed, list):
+                return [str(item).strip() for item in parsed if str(item).strip()]
+        if "," in text:
+            return [item.strip() for item in text.split(",") if item.strip()]
+        return [text]
+    return value
+
+
+class CustomEnvSettingsSource(EnvSettingsSource):
+    def prepare_field_value(self, field_name, field, field_value, value_is_complex):
+        if field_name == "cors_origins":
+            return parse_cors_origins(field_value)
+        return super().prepare_field_value(field_name, field, field_value, value_is_complex)
+
+
 class Settings(BaseSettings):
     app_name: str = "LegalIdea API"
     environment: str = Field(default="development", alias="APP_ENV")
@@ -45,7 +74,7 @@ class Settings(BaseSettings):
     def settings_customise_sources(cls, _settings_cls, init_settings, env_settings, dotenv_settings, file_secret_settings):
         return (
             init_settings,
-            env_settings,
+            CustomEnvSettingsSource(_settings_cls),
             dotenv_settings,
             file_secret_settings,
         )
@@ -62,26 +91,8 @@ class Settings(BaseSettings):
 
     @field_validator("cors_origins", mode="before")
     @classmethod
-    def parse_cors_origins(cls, value):
-        if isinstance(value, list):
-            return [str(item).strip() for item in value if str(item).strip()]
-        if isinstance(value, tuple):
-            return [str(item).strip() for item in value if str(item).strip()]
-        if isinstance(value, str):
-            text = value.strip()
-            if not text:
-                return []
-            if text.startswith("[") and text.endswith("]"):
-                try:
-                    parsed = json.loads(text)
-                except json.JSONDecodeError:
-                    parsed = []
-                if isinstance(parsed, list):
-                    return [str(item).strip() for item in parsed if str(item).strip()]
-            if "," in text:
-                return [item.strip() for item in text.split(",") if item.strip()]
-            return [text]
-        return value
+    def parse_cors_origins_field(cls, value):
+        return parse_cors_origins(value)
 
 
 @lru_cache
