@@ -41,6 +41,14 @@ def create_app() -> FastAPI:
     for r in app.routes:
         methods = getattr(r, "methods", None)
         logger.info("Mounted route: %s methods=%s", getattr(r, "path", r), methods)
+    # Also print to stdout so platform logs reliably capture this at startup
+    try:
+        print(f"Configured API_PREFIX={settings.api_prefix}")
+        for r in app.routes:
+            methods = getattr(r, "methods", None)
+            print(f"Mounted route: {getattr(r, 'path', r)} methods={methods}")
+    except Exception:
+        pass
 
     @app.get("/", tags=["meta"], summary="Service metadata")
     async def root() -> dict[str, str]:
