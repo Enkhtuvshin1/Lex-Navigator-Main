@@ -1,7 +1,7 @@
 """Application configuration driven by environment variables."""
 from functools import lru_cache
 from pathlib import Path
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Always resolve .env relative to the project root, regardless of working directory
@@ -38,6 +38,16 @@ class Settings(BaseSettings):
     ai_model: str = Field(default="gpt-4o-mini", alias="AI_MODEL")
 
     model_config = SettingsConfigDict(env_file=_ENV_FILE, env_file_encoding="utf-8", extra="ignore")
+
+    @field_validator("api_prefix", mode="before")
+    @classmethod
+    def ensure_leading_slash(cls, value: str) -> str:
+        if not isinstance(value, str):
+            return value
+        value = value.strip()
+        if not value:
+            return "/"
+        return value if value.startswith("/") else f"/{value}"
 
 
 @lru_cache
