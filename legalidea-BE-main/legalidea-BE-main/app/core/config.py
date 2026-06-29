@@ -1,4 +1,5 @@
 """Application configuration driven by environment variables."""
+import json
 from functools import lru_cache
 from pathlib import Path
 from pydantic import Field, field_validator
@@ -48,6 +49,29 @@ class Settings(BaseSettings):
         if not value:
             return "/"
         return value if value.startswith("/") else f"/{value}"
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, value):
+        if isinstance(value, list):
+            return [str(item).strip() for item in value if str(item).strip()]
+        if isinstance(value, tuple):
+            return [str(item).strip() for item in value if str(item).strip()]
+        if isinstance(value, str):
+            text = value.strip()
+            if not text:
+                return []
+            if text.startswith("[") and text.endswith("]"):
+                try:
+                    parsed = json.loads(text)
+                except json.JSONDecodeError:
+                    parsed = []
+                if isinstance(parsed, list):
+                    return [str(item).strip() for item in parsed if str(item).strip()]
+            if "," in text:
+                return [item.strip() for item in text.split(",") if item.strip()]
+            return [text]
+        return value
 
 
 @lru_cache
