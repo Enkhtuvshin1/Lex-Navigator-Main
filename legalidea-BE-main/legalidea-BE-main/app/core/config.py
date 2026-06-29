@@ -4,6 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings.sources import EnvSettingsSource
 
 # Always resolve .env relative to the project root, regardless of working directory
 _ENV_FILE = Path(__file__).parent.parent.parent / ".env"
@@ -39,6 +40,15 @@ class Settings(BaseSettings):
     ai_model: str = Field(default="gpt-4o-mini", alias="AI_MODEL")
 
     model_config = SettingsConfigDict(env_file=_ENV_FILE, env_file_encoding="utf-8", extra="ignore")
+
+    @classmethod
+    def settings_customise_sources(cls, _settings_cls, init_settings, env_settings, dotenv_settings, file_secret_settings):
+        return (
+            init_settings,
+            env_settings,
+            dotenv_settings,
+            file_secret_settings,
+        )
 
     @field_validator("api_prefix", mode="before")
     @classmethod
@@ -77,4 +87,7 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings() -> Settings:
     """Cache settings object for reuse across the app lifecycle."""
-    return Settings()  # type: ignore[arg-type]
+    try:
+        return Settings()  # type: ignore[arg-type]
+    except Exception:
+        return Settings(cors_origins=[])  # type: ignore[arg-type]
