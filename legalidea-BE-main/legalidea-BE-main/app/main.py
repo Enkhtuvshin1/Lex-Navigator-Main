@@ -33,6 +33,15 @@ def create_app() -> FastAPI:
 
     app.include_router(api_router, prefix=settings.api_prefix)
 
+    # Log configured API prefix and all mounted routes for runtime debugging
+    import logging
+
+    logger = logging.getLogger("uvicorn")
+    logger.info("Configured API_PREFIX=%s", settings.api_prefix)
+    for r in app.routes:
+        methods = getattr(r, "methods", None)
+        logger.info("Mounted route: %s methods=%s", getattr(r, "path", r), methods)
+
     @app.get("/", tags=["meta"], summary="Service metadata")
     async def root() -> dict[str, str]:
         return {"name": APP_NAME, "version": APP_VERSION}
