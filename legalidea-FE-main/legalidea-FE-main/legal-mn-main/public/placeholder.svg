@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Legal gavel illustration">
+  <rect width="640" height="360" rx="24" fill="#f8fafc"/>
+  <circle cx="492" cy="86" r="58" fill="#e2e8f0"/>
+  <path d="M375 74 491 190a24 24 0 0 1 0 34l-16 16a24 24 0 0 1-34 0L325 124a24 24 0 0 1 0-34l16-16a24 24 0 0 1 34 0Z" fill="#0f172a"/>
+  <path d="m292 149 116 116-43 43-116-116 43-43Z" fill="#334155"/>
+  <path d="M207 208a20 20 0 0 1 28 0l87 87a20 20 0 0 1 0 28l-14 14a20 20 0 0 1-28 0l-87-87a20 20 0 0 1 0-28l14-14Z" fill="#0f172a"/>
+  <path d="m390 287 54-54 107 107a18 18 0 0 1 0 25l-4 4a18 18 0 0 1-25 0L390 287Z" fill="#b45309"/>
+  <path d="M86 298h246a21 21 0 1 1 0 42H86a21 21 0 1 1 0-42Z" fill="#b45309"/>
+  <path d="M82 286h258a10 10 0 0 1 10 10v3H72v-3a10 10 0 0 1 10-10Z" fill="#92400e"/>
+  <path d="M72 62h176a12 12 0 0 1 12 12v10H72V62Z" fill="#e2e8f0"/>
+  <path d="M72 103h176" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/>
+  <path d="M72 143h134" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/>
+  <path d="M72 183h96" stroke="#cbd5e1" stroke-width="14" stroke-linecap="round"/>
+</svg>

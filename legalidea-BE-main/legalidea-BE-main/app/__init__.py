@@ -1,0 +1,1 @@
+"""LegalIdea FastAPI application package."""

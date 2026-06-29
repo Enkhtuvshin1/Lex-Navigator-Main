@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: legalidea-be
+Version: 0.1.0
+Summary: Backend FastAPI service for the LegalIdea platform
+Author-email: LegalIdea Team <dev@legalidea.local>
+Requires-Python: >=3.11
+Requires-Dist: fastapi[standard]>=0.110
+Requires-Dist: uvicorn[standard]>=0.27
+Requires-Dist: pydantic>=2.7
+Requires-Dist: pydantic-settings>=2.2
+Requires-Dist: sqlalchemy>=2.0
+Requires-Dist: alembic>=1.13
+Requires-Dist: asyncpg>=0.29
+Requires-Dist: psycopg[binary]>=3.1
+Requires-Dist: python-jose[cryptography]>=3.3
+Requires-Dist: passlib[bcrypt]>=1.7
+Requires-Dist: bcrypt<4.1
+Requires-Dist: redis>=5.0
+Requires-Dist: httpx>=0.27
+Requires-Dist: python-dotenv>=1.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8.1; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23; extra == "dev"
+Requires-Dist: anyio>=4.3; extra == "dev"
+Requires-Dist: ruff>=0.3; extra == "dev"
+Requires-Dist: aiosqlite>=0.19; extra == "dev"

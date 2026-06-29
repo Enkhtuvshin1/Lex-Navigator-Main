@@ -1,0 +1,15 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office'
+      xmlns:w='urn:schemas-microsoft-com:office:word'
+      xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12pt; }
+        table { border-collapse: collapse; width: 100%; }
+        td, th { border: 1px solid #ccc; padding: 6px; }
+    </style>
+</head>
+<body>
+<div id="source-html"> <div id="printableArea" class="decisionfull"> <style type="text/css"> @media print{ body{ background-color:#FFFFFF; background-image:none; color:#000000 } .noprint { display: none; } @page { margin: 15mm 15mm 15mm 30mm; } } </style> <div class="decisionfullimg"> <img src="https://shuukh.mn/assets/site/images/icon/suld.png"> <p style="text-transform: uppercase;">ийн </p> </div> <div class="row decisionfulltitle"> <div class="col-md-4 fleft"> <p>1970 оны 01 сарын 01 өдөр</p> </div> <div class="col-md-4 fcenter"> <p>Дугаар </p> </div> <div class="col-md-4 fright"> <p class="fright"></p> </div> </div> <style> .undsen{ font-size: 0.8rem; text-align: justify; } </style> <div class="clearfix"> </div> <div class="undsen"> </div> </div> </div> <div id="editor"></div> </div>
+</body>
+</html>

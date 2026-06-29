@@ -1,0 +1,2 @@
+APP_NAME = "LegalIdea API"
+APP_VERSION = "0.1.0"
